@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h> #include<math.h>
+struct polynomial
+int coeff, x, y, z; struct polynomial *link; typedef struct polynomial * POLYNOMIAL;
+/*Function definition to allocate memory.*/
+POLYNOMIAL create()
+POLYNOMIAL getnode;
+getnode = ( POLYNOMIAL ) malloc ( sizeof ( struct polynomial ) );
+if ( getnode NULL )
+printf ( "\nMemory couldnt be allocated!! I" ); return;
+return ( getnode );
+/*Function definition to insert a polynomial in a singly circular linked list with header node.*/
+POLYNOMIAL insert_end ( POLYNOMIAL head, int c, int PX, int py, int pz )
+POLYNOMIAL node, temp;
+node = create();
+node->coeff = c; node->x = px;  node->Y = py; node->z = pz; node->link = NULL;
+temp = head->link;
+	while ( temp->link head )	/*Traverse till the end of the list.*/
+temp = temp->link;
+temp->link = node; node->link = head;	/ *Attach the node to the end of the list.*/
+/ *Assign the address of the head to node's link.*/
+return ( head );
+/*Function definition to read the polynomial.*/
+POLYNOMIAL input_polynomial ( POLYNOMIAL head )
+int i, c, PX, py, pz;
+printf ( "\nEnter 999 to end the polynomial!!!"  for ( j ; )
+printf ( "\nEnter the coefficient %d: ", i ); scanf ( "%d", &c );
+if ( c 999 ) / *Breaks the loop when 999 is entered indicating end of input.*/ break;
+printf ( "\nEnter the power of x: " ); scanf ( "%d", &px );
+printf ( "\nEnter the power of y:  scanf ( ''%d", &py );
+printf ( "\nEnter the power of z: " ); scanf ( "%d", &pz );
+head = insert_end ( head, c, PX, py, pz );
+return ( head );
+/*Function definition to display the list.*/ void display ( POLYNOMIAL head )
+POLYNOMIAL temp;
+if ( head->link == head )
+printf ( "\nPolynomial doesnt exist!  return;
+temp = head->link; while ( temp != head )
+printf (   + temp->coeff, temp->x, temp->Y, temp->z ); temp = temp->link; printf ( "999" );
+/*Function definition to sum the two polynomials.*/
+POLYNOMIAL sum_polynomial ( POLYNOMIAL headl, POLYNOMIAL head2, POLYNOMIAL head3 )
+POLYNOMIAL pi, p2; int flag; pl = headl->link;
+while ( pl headl )
+p2 = head2->link; flag = O; / *No matching polynomial.*/ while ( p2 head2 )
+/*Check if the power of x, y and z of both ofthe polynomials are equal or not.*/ if ( ( pl->X p2->X ) && ( pl->Y p2->Y ) && ( pl->Z p2->Z ) )
+/*Sum the coefficients and inert into the final polynomial.*/ head3 = insert_end ( head3, pl->coeff + p2->coeff, pl->X, pl->Y, pl->Z ); p2->coeff = O; /*Assign O to the coeff of polynomial to indicate that we have finished evaluating it.*/ flag = 1; / *Matching polynomial.*/
+break;
+p2 = p2->link;
+if ( flag O ) / *No matching polynomial.*/ head3 = insert_end ( head3, pl->coeff, pl->X, pl->Y, pl->Z ); / *Insert polynomiall into final polynomial.*/ pl = pl->link;
+p2 = head2->Iink; while ( p2 head2 )
+if ( p2->coeff != 0 ) /*Check for left out plolynomial's in polynomia12.*/ head3 = insert_end ( head3, p2->coeff, p2->Y, p2->Z ); /*Insert polynomia12 into final polynomial.*/
+p2 = p2->Iink;
+return head3;
+int main()
+POLYNOMIAL headl, head2, head3;
+/*Create a header node for polynomiall whose link field points to the address of itself intially.*/ headl = create(); headl->link = headl;
+/*Create a header node for polynomia12 whose link field points to the address of itself intially.*/ head2 = create(); head2->link = head2;
+/*Create a header node for sum of polynomial whose link field points to the address of itself intially.*/ head3 = create(); head3->link = head3;
+printf ( "\nEnterthe first polynomial: '  headl = input_polynomial ( headl );
+ 
+display ( headl );
+printf ( "\n\nEnter the second polynomial: " ); head2 = input_polynomial ( head2 ); display ( head2 );
+head3 = sum_polynomial ( headl, head2, head3 ); printf ( "\n\nThe sum of two polynomials is: " )  display ( head3 ); return ( O 
